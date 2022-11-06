@@ -5,9 +5,14 @@ const authRoutes = require("./routes/authRoutes");
 
 const mongoose = require("mongoose");
 
+const dotenv = require('dotenv');
+
+
 const cookieParser = require('cookie-parser');
 
 const app = express();
+
+dotenv.config({ path: './config/.env' });
 
 app.use(express.static("public"));
 
@@ -50,10 +55,9 @@ app.get("/smoothy", (req, res) => {
 
 app.use(authRoutes);
 
-const dbURI =
-  "mongodb+srv://admin:admin@cluster0.avxgzbm.mongodb.net/?retryWrites=true&w=majority";
+const dbURI = process.env.STRING_CONNECTION_MONGODB;
 
-PORT = 4000;
+PORT = process.env.PORT;
 
 mongoose
   .connect(dbURI, {
