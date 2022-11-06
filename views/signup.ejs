@@ -4,12 +4,12 @@
 <form>
     <div>
         <label for="email">Email: </label>
-        <input type="email" name="email" required />
+        <input type="email" id="email_input" name="email" required />
         <p class="email_error" style="color:red; font-size:10px ;"></p>
     </div>
     <div>
         <label for="email">Password: </label>
-        <input type="password" name="password" required />
+        <input type="password" id="password_input" name="password" required />
         <p class="password_error" style="color:red; font-size:10px ;"></p>
     </div>
     <button class="submitBtn">Submit</button>
@@ -19,7 +19,8 @@
     var form = document.querySelector("form");
     var email_error = document.querySelector(".email_error");
     var password_error = document.querySelector(".password_error");
-
+    var password_input = document.getElementById("email_input");
+    var email_input = document.getElementById("password_input");
     
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -45,6 +46,11 @@
                     email_error.innerHTML = '';
                     password_error.innerHTML = '';
                  }, 3000);
+            }
+            if(data.userId) {
+                password_input.value = "";
+                email_input.value = "";
+                location.assign('/');
             }
 
             } 
