@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="/css/signup.css">
+<%- include('./partials/header') %>
+<h1> Signup Page </h1>
+<form>
+    <div>
+        <label for="email">Email: </label>
+        <input type="email" name="email" required />
+        <p class="email.error"></p>
+    </div>
+    <div>
+        <label for="email">Password: </label>
+        <input type="password" name="password" required />
+        <p class="password.error"></p>
+    </div>
+    <button>Submit</button>
+</form>
+
+<script>
+    let form = document.querySelector("form");
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        let email = form.email.value;
+        let password = form.password.value;
+
+        console.log({email, password});
+    });
+</script>

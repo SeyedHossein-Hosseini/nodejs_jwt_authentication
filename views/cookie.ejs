@@ -1,0 +1,20 @@
+<p>the cookie will expire at 5 seconds</p>
+<p></p>
+
+<script>
+    let p = document.querySelector("p");
+
+    var time = 5;
+
+    p.innerHTML = +time;
+
+   let myInterval = setInterval(()=> {
+        time --;
+        console.log("count");
+        if(time === 0) {
+            clearInterval(myInterval);
+        }
+        p.innerHTML = time;
+    }, 1000);
+
+</script>
