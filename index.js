@@ -9,7 +9,7 @@ const dotenv = require('dotenv');
 
 const cookieParser = require('cookie-parser');
 
-const { handleUserAuth } = require('./middleware/authenticateUserByToken');
+const { handleUserAuth, checkUser } = require('./middleware/authenticateUserByToken');
 
 const app = express();
 
@@ -24,6 +24,8 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+
+app.get("*", checkUser);
 
 app.get("/", (req, res) => {
   res.render("home");
