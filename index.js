@@ -29,8 +29,8 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/smoothy", handleUserAuth, (req, res) => {
-  res.render("smoothy");
+app.get("/main", handleUserAuth, (req, res) => {
+  res.render("main");
 });
 
 

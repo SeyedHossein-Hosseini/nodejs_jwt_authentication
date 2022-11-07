@@ -3,12 +3,12 @@ const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 
 // based on seconds
-const maxAge = 5;
+const maxAge = 50;
 
 const createToken = (id) => {
   let data = { time: Date(), userId: id };
   return jwt.sign(data, process.env.SECRET_KEY, {
-    expiresIn: maxAge,
+    expiresIn: maxAge * 100,
     // maxAge: 1000 * 5
   });
 };
@@ -80,8 +80,8 @@ module.exports.login_post = async (req, res) => {
 
 module.exports.logout_get = (req, res) => {
   res.cookie('jwt', '', {
-    maxAge: 0
+    maxAge: 1
   });
 
-  res.redirect("/");
+  res.redirect("/login");
 }
