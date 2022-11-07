@@ -7,8 +7,9 @@ const mongoose = require("mongoose");
 
 const dotenv = require('dotenv');
 
-
 const cookieParser = require('cookie-parser');
+
+const { handleUserAuth } = require('./middleware/authenticateUserByToken');
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/smoothy", (req, res) => {
+app.get("/smoothy", handleUserAuth, (req, res) => {
   res.render("smoothy");
 });
 

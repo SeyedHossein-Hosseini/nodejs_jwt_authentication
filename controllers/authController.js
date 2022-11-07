@@ -7,7 +7,7 @@ const maxAge = 5;
 
 const createToken = (id) => {
   let data = { time: Date(), userId: id };
-  return jwt.sign(data, process.env.JWT_SECRET_STRING, {
+  return jwt.sign(data, process.env.SECRET_KEY, {
     expiresIn: maxAge,
     // maxAge: 1000 * 5
   });
@@ -39,7 +39,7 @@ module.exports.signup_post = async (req, res) => {
     const user = await User.create({ email, password });
     const token = createToken(user._id);
     res.cookie('jwt', token, {
-      maxAge: maxAge * 1000
+      maxAge: maxAge * 1000 * 1000
     });
     const userId = user._id;
     res.status(201).json({ userId });
@@ -61,8 +61,8 @@ module.exports.login_post = async (req, res) => {
     const userId = user._id;
     const token = createToken(user._id);
     res.cookie('jwt', token, {
-      maxAge: maxAge * 1000
-    }); 
+      maxAge: maxAge * 1000 * 1000
+    });
     res.status(200).json({ userId });
   }
   catch (err) {
@@ -76,3 +76,12 @@ module.exports.login_post = async (req, res) => {
     res.status(400).json({ errors });
   }
 };
+
+
+module.exports.logout_get = (req, res) => {
+  res.cookie('jwt', '', {
+    maxAge: 0
+  });
+
+  res.redirect("/");
+}

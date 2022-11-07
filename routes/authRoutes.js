@@ -4,7 +4,8 @@ const {
   signup_get,
   signup_post,
   login_get,
-  login_post
+  login_post,
+  logout_get
 } = require("../controllers/authController");
 
 const router = Router();
@@ -20,5 +21,9 @@ router.get("/login", login_get);
 
 // this route sends a request to database for logining in
 router.post("/login", login_post);
+
+// for logging out user
+router.get("/logout", logout_get);
+
 
 module.exports = router;
