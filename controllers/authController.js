@@ -55,5 +55,24 @@ module.exports.login_get = (req, res) => {
 
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
-  res.send("attempted to login");
+
+  try {
+    const user = await User.login(email, password);
+    const userId = user._id;
+    const token = createToken(user._id);
+    res.cookie('jwt', token, {
+      maxAge: maxAge * 1000
+    }); 
+    res.status(200).json({ userId });
+  }
+  catch (err) {
+    const errors = { email: "", password: "" };
+    if (err.message.includes("This user not exists")) {
+      errors.email = "This user not exists";
+    }
+    if (err.message.includes("Password is incorrect")) {
+      errors.password = "Password is incorrect"
+    }
+    res.status(400).json({ errors });
+  }
 };
